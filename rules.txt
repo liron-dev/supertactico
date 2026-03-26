@@ -1,0 +1,272 @@
+SUPER TAKTIKO – SUPER STRATEGO GAME RULES
+Whoever succeeds in destroying the enemy’s pieces to capture the enemy’s flag and return it to their own island home base wins!
+2-players, ages 9-99
+
+Game Objectives
+1. Capture the enemy’s flag and return it to your own island home base.
+2. Play tactically and strategically, exercising discretion, planning, and thinking.
+
+Game Contents
+Game board
+104 game pieces
+
+Game pieces:
+mobile_units: # The mobile pieces are set on the game board, move, and win attacks (in descending order by rank). The number of pieces per player is in the count. For example: Rav Aluf (1).
+  foot_units:
+    - name: "Rav Aluf"
+      count: 1
+      png: "Rav Aluf.png"
+    - name: "Aluf"
+      count: 1
+      png: "Aluf.png"
+    - name: "Sgan Aluf"
+      count: 2
+      png: "Sgan Aluf.png"
+    - name: "Rav Seren"
+      count: 3
+      png: "Rav Seren.png"
+    - name: "Seren"
+      count: 3
+      png: "Seren.png"
+    - name: "Segen"
+      count: 4
+      png: "Segen.png"
+    - name: "Rav Samal"
+      count: 4
+      png: "Rav Samal.png"
+    - name: "Samal"
+      count: 5
+      png: "Samal.png"
+    - name: "Rav Turai"
+      count: 5
+      png: "Rav Turai.png"
+    - name: "Commando"
+      count: 1
+      png: "Commando.png"
+    - name: "Navy Seal"
+      count: 1
+      png: "Navy Seal.png"
+
+  naval_ships:
+    - name: "M7 Ship"
+      count: 2
+      png: "M7 Ship.png"
+    - name: "M4 Ship"
+      count: 2
+      png: "M4 Ship.png"
+    - name: "Patrol Ship"
+      count: 4
+      png: "Patrol Ship.png"
+    - name: "Life Raft"
+      count: 3
+      png: "Life Raft.png"
+
+  aircraft:
+    - name: "Fighter Plane"
+      count: 2
+      png: "Fighter Plane.png"
+    - name: "Reconnaissance Plane"
+      count: 2
+      png: "Reconnaissance Plane.png"
+
+immobile_units: # These units are set on the game board and do not move or attack.
+  - name: "Land mine"
+    count: 3
+    png: "Land mine.png"
+  - name: "Naval mine"
+    count: 3
+    png: "Naval mine.png"
+  - name: "Flag"
+    count: 1
+    png: "Flag.png"
+
+Initial Unit Placement
+i. Players each set up their units as they wish in the first bottom/top nine (9) rows. Only they can see the identification labels such that the opponent cannot visually identify the pieces. Throughout the game units will always be visible only for their respective player (Unless there is a battle between two units).
+ii. After initial placement the middle two rows will be empty.
+iii. Players must leave three (3) empty spaces on his island for opponents’ pieces to invade.
+iv. Players must leave a viable path of attack toward their flag. That is to say, one may not surround their own flag with mines on all sides.
+
+Unit Starting Locations and Movement Rules:
+  - unit: Navy Seal
+    start: [Land, Island, Sea]
+    movement: [Land, Island, Sea]
+  - unit: foot_units
+    start: [Land, Island]
+    movement: [Land, Island]
+    notes: "Requires ship/plane for Sea"
+  - unit: Naval Mines
+    start: [Anywhere]
+    movement: [Immobile]
+    notes: "Transportable by ship/plane"
+  - unit: Land Mines
+    start: [Land, Island]
+    movement: [Immobile]
+    notes: "Transportable by ship/plane"
+  - unit: naval_ships
+    start: [Sea]
+    movement: [Sea]
+  - unit: aircraft
+    start: [Over Sea]
+    movement: [Sea, Land, Island]
+    notes: "Requires clear path"
+  - unit: Flag
+    start: [Land]
+    movement: [None]
+    notes: "Must be carried by enemy soldier/ship"
+
+Game Play
+i. Yellow opens.
+ii. Players, on their own turns, move only one (1) piece and may choose one of three actions: Loading, Movement,Attack. After doing so the turn is over.
+iii. No diagonal movement.
+iv. All mobile pieces except for planes may move one square space in any direction—forward, backward, left, or right.
+v. A plane may move without limit in any direction as long as its path is clear. It may not fly over any piece, whether friendly or enemy.
+vi. Any mobile unit may move twice at most back-and-forth between the same two spaces.
+vii. The winner: The player who captured the enemy flag and returned it to their own island home base.
+
+Battle Outcomes
+battle_rules:
+  # Higher number wins. Both die if equal.
+  foot_units:
+    - name: "Rav Aluf"
+      rank: 10
+    - name: "Aluf"
+      rank: 9
+    - name: "Sgan Aluf"
+      rank: 8
+    - name: "Rav Seren"
+      rank: 7
+    - name: "Seren"
+      rank: 6
+    - name: "Segen"
+      rank: 5
+    - name: "Rav Samal"
+      rank: 4
+    - name: "Samal"
+      rank: 3
+    - name: "Rav Turai"
+      rank: 2
+    - name: "Commando"
+      rank: 1
+    - name: "Navy Seal"
+      rank: 0
+
+# Rules where the result depends on who is the Attacker
+  attacker_priority_wins:
+    - attacker: "Commando"
+      defender: "Rav Aluf"
+      winner: "attacker"
+    - attacker: "Navy Seal"
+      defender: "M7 Ship"
+      winner: "attacker"
+    - attacker: "Navy Seal"
+      defender: "Rav Aluf"
+      winner: "attacker"
+
+# Specific victory tables for non-ranked units
+  unit_victories:
+    - name: "Commando"
+      defeats: ["Navy Seal", "Naval mine", "Land mine", "Flag", "Fighter Plane", "Reconnaissance Plane"]
+    - name: "Navy Seal"
+      defeats: ["Naval mine", "Fighter Plane", "Reconnaissance Plane", "Flag"]
+    - name: "Fighter Plane"
+      defeats: ["Reconnaissance Plane"]
+    - name: "M7 Ship"
+      defeats: ["M4 Ship", "Patrol Ship", "Life Raft", "Fighter Plane", "Reconnaissance Plane", "Naval mine"]
+      special: "Highest Naval rank; wins against all except attacking Navy Seal"
+    - name: "M4 Ship"
+      defeats: ["Patrol Ship", "Life Raft", "Fighter Plane", "Reconnaissance Plane"]
+    - name: "Patrol Ship"
+      defeats: ["Life Raft"]
+    - name: "Life Raft"
+      defeats: ["Fighter Plane", "Reconnaissance Plane"]
+    - name: "Land mine"
+      defeats: ["All"]
+      except: ["Commando"]
+    - name: "Naval mine"
+      defeats: ["All"]
+      except: ["Navy Seal", "Commando", "M7 Ship"]
+    - name: "Flag"
+      defeats: ["Navy Seal", "Fighter Plane", "Reconnaissance Plane"]
+      special: "Captured by any foot unit or soldier-carrying ship"
+
+
+
+Flag Transfer
+i. Any/every foot unit (not including Navy Seals) may capture the enemy flag and carry it.
+ii. Planes may not transport the flag.
+iii.Ships may only transport the enemy flag if a soldier carrying the flag is loaded onto the ship.
+
+Loading and Transport Rules
+
+i. Players may only transport their own units and the enemy flag.
+ii. Units may be loaded between adjacent spaces, including marine loading between adjacent land (or island) and sea spaces.
+iii. No diagonal loading.
+iv. Only one unit may be loaded on each turn.
+v. Only with regard to loading one unit per turn, a soldier carrying the enemy flag is considered a single unit.
+
+Loading capacities:
+transport_capacities:
+  - name: "M7 Ship"
+    max_soldiers: 4
+    allows_flag: true
+    flag_occupies_slot: true # 3 soldiers + 1 flag = 4 slots
+    max_mines: 1
+    allowed_mines: ["Land mine", "Naval mine"]
+    max_additional_ships: 1
+    allowed_ships: ["Patrol Ship", "Life Raft"]
+    max_additional_planes: 1
+    allowed_planes: ["Reconnaissance Plane"]
+
+  - name: "M4 Ship"
+    max_soldiers: 4
+    allows_flag: true
+    flag_occupies_slot: true
+    max_mines: 1
+    allowed_mines: ["Land mine", "Naval mine"]
+    max_additional_ships: 1
+    allowed_ships: ["Patrol Ship", "Life Raft"]
+
+  - name: "Patrol Ship"
+    max_soldiers: 4
+    allows_flag: true
+    flag_occupies_slot: true
+    max_mines: 1
+    allowed_mines: ["Land mine", "Naval mine"]
+
+  - name: "Life Raft"
+    max_soldiers: 2
+    allows_flag: true
+    flag_occupies_slot: true
+
+  - name: "Fighter Plane"
+    max_soldiers: 5
+    max_mines: 1
+    allowed_mines: ["Land mine", "Naval mine"]
+    allows_flag: false # Per rules: "Planes may not transport the flag."
+
+  - name: "Reconnaissance Plane"
+    max_soldiers: 2
+    max_mines: 1
+    allowed_mines: ["Land mine", "Naval mine"]
+    allows_flag: false
+
+Pay attention to the transport capacity of each unit! For example: An M7 ship already transporting 4
+soldiers may only load an empty life raft. If a life raft already has passengers, they must first be unloaded
+prior to loading the life raft onto the M7 ship.
+
+
+Attack Rules
+i. Any mobile unit may attack any enemy unit on an adjacent square, but it is not required to attack.
+ii. No marine attacks: a unit may not attack the land (or island) from the sea or vice versa.
+iii. The lower ranking unit loses and is removed from the game, and if the attacker won, it captures (that is, moves to) the square the defeated unit vacated.
+iv. If the attacking and defending units are of the same rank, both are removed from the game.
+v. If a ship without a life raft loaded with cargo or passengers is defeated at sea, both the ship and all its cargo and passengers are removed from the game.
+vi. A mine (either land or naval) that was attacked (and won) does not move and remains where it is. The defeated unit is removed from the game.
+vii. A soldier who defeats the enemy flag moves to its square and loads the flag.
+viii. When a soldier carrying the enemy flag on land is defeated, the unit is removed from the game and the flag remains on the vacated space. The winner unit stays in its square as well.
+ix. When a ship without a life raft transporting the enemy flag is defeated at sea, the flag is returned to its initial owner for placement on any available space on land (not on the island).
+x. The strength of an attacked transported unit is the strength of the transporting unit. When a transporting unit is defeated both it and its cargo are removed from the game. The victorious unit moves to occupy the newly vacated space.
+
+Escape By Life Raft
+i. It is possible for up to 2 soldiers (or 1 soldier + enemy flag) to escape by life raft from a transporting ship that was attacked and defeated only if the latter was transporting said life raft when attacked.
+ii. The life raft will be moved to a space adjacent to the defeated transporting ship.
