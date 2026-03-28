@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Super Tactico",
+    "slug": "super-tactico",
+    "version": "1.0.0",
+    "scheme": "supertactico",
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "favicon": "./assets/favicon.png"
+    },
+    "userInterfaceStyle": "dark",
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

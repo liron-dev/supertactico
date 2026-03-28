@@ -1,11 +1,43 @@
-I want to create a React Native + NativeWind (Tailwind) + expo version of the Israeli game "סופר טקטיקו" (Super Tactico). I will deploy this to Vercel, Initially as a web app.
+# MISSION: Project "Super Tactico" (React Native Web)
+You are an autonomous AI development team. Your objective is to build a React Native + Expo + NativeWind web application for the Israeli board game "סופר טקטיקו". 
 
-I have a map.txt file (20x20 grid, you can parse my map.txt into a 2D array: S = Sea, L = Land, I = Island) and 2 folders, 1 for each player color: images-blue and images-yellow, each having 20 512x512 pixels PNG assets representing the board pieces. The png files are named like this: <unit>.png I also have there a blank.png file to be used when the piece is unknown or when there are pieces loaded on top of each other (you can write the number of pieces inside the blank). The png pieces are squares, and they have black frame in their edge and rounded corners.
+I am handing this to you in Plan Mode. You must first analyze the requirements, create a comprehensive step-by-step execution plan, and then autonomously execute the entire pipeline using your tools. Spawn sub-tasks or sub-agents as necessary to handle specific domains (State, Game Logic, UI, Assets).
 
-The app will have 3 screens: home the game screen and rules screen. In the Home screen There will be "Super Tactico" game title, "Play Game" button and "Game Rules" button
-Put a lot of effort into designing this project. Imagine you are the best designer in the world. Invest in a cool design, especially in the home and game screens. Playing the game, browsing the board situation and having interactions between pieces in the game should feel easy and capturing for the human eye. Every action the players want to perform should feel natural and easy.
+## CORE ASSETS & STACK
+- **Stack:** React Native, Expo, NativeWind, Zustand (or similar for state), Vercel (Target: Web). Do not hardcode legacy versions; use the latest stable releases compatible with each other.
+- **Map:** Read `map.txt`. It is a 20x20 grid (S = Sea, L = Land, I = Island).
+- **Rules:** Read `rules.txt`. Adhere strictly to piece hierarchy, movement rules, and setup phases.
+- **Assets:** `images-blue/` and `images-yellow/` contain 20 unit types (`<unit>.png`) and `blank.png`. All are 512x512 squares with black frames and rounded corners.
 
-Game rules can be found in rules.txt. You need to both put them in the Game Rules screen in a human readable friendly format, and also implement them precisely in the game itself. Do not skip any game rule!
-Pay attention to the small details while programming the game mechinics, A M7 ship can carry a Life Raft, which itself can carry soldiers. The state for a cell should be able to hold a nested stack of units.
+## CRITICAL ARCHITECTURAL CONSTRAINTS
+Before writing code, you must design the system around these non-negotiable requirements:
 
-Initially, I want to create a version of the game that is played from 1 computer only- both players play in the same computer, so you don't need to do all sorts of matching between online players. The yellow player will setup all of the yellow pieces first, then the blue will setup everything, and then the yellow will start turn 1.
+1. **Normalized State Management (Crucial for Performance):**
+   A 20x20 grid means 400 cells. Do NOT store the full nested piece objects inside a 2D array. Use a normalized state (e.g., a dictionary of `piecesById` and a 2D array of `cellIds`). This prevents catastrophic re-renders when a single piece moves.
+2. **Deep Stacking Logic:**
+   An M7 ship can carry a Life Raft, which carries soldiers. Your piece data structure must support a tree-like `carriedPieces` array or nested IDs. 
+3. **Fog of War & The "Blank" Asset:**
+   The Game Engine must know the true identity of every piece, but the UI component must conditionally render `blank.png` for enemy pieces to hide their identity. If a cell contains a stack (like a loaded ship), superimpose a numerical badge on the UI to indicate the stack size.
+4. **Viewport Interaction:**
+   A 20x20 board will not fit on most screens. You must implement a scrollable viewport or a pan/zoom wrapper (e.g., using gesture handlers or CSS transforms for web) so navigating the board feels natural and high-end.
+5. **Decoupled Game Engine:**
+   Keep the game logic (combat resolution, valid moves, embarking/disembarking) completely separate from React components. Write them as pure TypeScript functions that update the global state.
+
+## EXECUTION PIPELINE
+Execute this project autonomously in the following logical order. Verify your work (e.g., check for type errors or linting issues) after each phase:
+
+1. **Phase 1: Environment & Architecture**
+   - Initialize the Expo + NativeWind environment.
+   - Set up `expo-router` for three screens: Home, Game, Rules.
+   - If you encounter library configuration ambiguities, proactively use the `context7` plugin to fetch the current documentation.
+   - Define and export the TypeScript interfaces and global state store.
+2. **Phase 2: The Game Engine**
+   - Parse `map.txt` into the initial board state.
+   - Parse `rules.txt` into a numeric hierarchy constant for combat.
+   - Implement the pure logic functions: Setup phases (Yellow then Blue), movement validation, combat resolution, and transport loading.
+3. **Phase 3: High-End UI/UX**
+   - **Home Screen:** Modern, capturing design with "Play Game" and "Rules" buttons.
+   - **Rules Screen:** A beautiful, human-readable rendering of the game mechanics.
+   - **Game Board:** Render the 20x20 grid with pan/scroll capabilities. Ensure drag-and-drop or tap-to-move interactions are snappy and intuitive. Map the 512x512 PNGs correctly, utilizing `blank.png` for hidden units.
+
+Acknowledge this mission, output your plan, and begin execution.
