@@ -8,4 +8,4 @@ Agent(subagent_type:"logic-cartographer",model:"sonnet") → map all logic to YA
 3. Code addressing all noted flaws
 
 # Skill Execution Protocol
-**batch-fs**: For 2+ file/dir creations, batch-fs skill must be invoked and individual write_file or bash calls are prohibited. Use one batch-fs for all files/dirs combined.
+**batch-fs**: For 2+ file/dir creations, Skill("batch-fs") must invoke and individual write_file or bash calls are prohibited. Use one batch-fs for all files/dirs combined.
