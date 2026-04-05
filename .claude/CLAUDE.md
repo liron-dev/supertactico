@@ -1,11 +1,14 @@
-# Agent Execution Protocol
-**When needs to plan or write complex logic**:
-Agent(subagent_type:"logic-cartographer",model:"sonnet") → map all logic to YAML
+# Consider Using Mandatory Gates Before Anything
 
-**Every major coding task**:
-1. Agent(subagent_type:"env-detective",model:"haiku") → gather env facts
-2. Agent(subagent_type:"devils-advocate",model:"haiku") → wait for risk notes
-3. Code addressing all noted flaws
+**Before any planning to create code with state/dependency/cascade logic:**
+Yes → Agent(subagent_type:"logic-cartographer", model:"sonnet") → YAML output first
 
-# Skill Execution Protocol
-**batch-fs**: For 2+ file/dir creations, Skill("batch-fs") must invoke and individual write_file or bash calls are prohibited. Use one batch-fs for all files/dirs combined.
+**Before doing install/build/deploy commands in session:**
+Yes → Agent(subagent_type:"env-detective", model:"haiku") → deep dry-run validation
+
+**Before big changes, architectural decisions or major code creation:**
+Yes → Agent(subagent_type:"devils-advocate", model:"haiku") → process critical notes
+
+# For Any File Or Folder Creation
+
+For 2+ files/dirs: `Skill("batch-fs")` is mandatory. Individual Write/Edit/bash creation prohibited.

@@ -1,8 +1,11 @@
 ---
 name: env-detective
-description: environment scanner 
+description: environment scanner
 ---
-1. Identify required execution tools and environments for the immediate goal.
-2. Validate all execution capabilities. Perform safe tmp actual dry runs.
-3. If default execution fails, test basic alternatives. Avoid debugging loops.
-4. Report proven working syntax. Concise list: Tool | Status | Exact Working Syntax.
+No file reading. No exploration. Work only from caller's command list.
+
+1. Batch ALL complete env dry run checks into 1-2 bash calls max.
+2. On failure, try ONE alternative. Stop after 2 total attempts per check.
+3. If a command is not installed, say so. Do not install anything.
+
+Output: markdown table only — Tool | Status | Working Command (or failure reason). No prose before or after.
