@@ -1,4 +1,7 @@
-# batch_fs
+---
+name: batch_fs
+description: Shell tool for 2+ file/dir creations
+---
 - `@@ path/` — dir
 - `@@ path/file` — file (raw content below)
 

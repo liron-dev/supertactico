@@ -1,8 +1,11 @@
 # Agent Execution Protocol
-Every major coding task:
-1. Agent(subagent_type:"environment-detective",model:"haiku") → cache env facts
+**When needs to plan or write complex logic**:
+Agent(subagent_type:"logic-cartographer",model:"sonnet") → map all logic to YAML
+
+**Every major coding task**:
+1. Agent(subagent_type:"env-detective",model:"haiku") → gather env facts
 2. Agent(subagent_type:"devils-advocate",model:"haiku") → wait for risk notes
 3. Code addressing all noted flaws
 
 # Skill Execution Protocol
-When creating 2+ files/dirs, use `batch-fs` skill instead of individual Write/Bash calls.
+**batch-fs**: For 2+ file/dir creations, batch-fs skill must be invoked and individual write_file or bash calls are prohibited. Use one batch-fs for all files/dirs combined.
