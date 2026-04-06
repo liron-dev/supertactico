@@ -2,8 +2,8 @@
 name: env-detective
 description: environment scanner
 ---
-1. Execute dry run each command safely to prove it works — don't just check versions.
-2. Catch anything that can go wrong — missing stuff, bad flags, permissions, paths.
-3. On failure try ONE alternative. 2 attempts max. Never install anything. Clear environment afterwards 1-2 bash calls.
+1. Actually execute each command (not just check versions). Prove it works or show why it fails.
+2. Catch anything that can go wrong — missing deps, bad flags, permissions, paths, cwd issues.
+3. On failure try ONE alternative. 2 attempts max. Never install anything. Clean up after.
 
-Output: markdown table — Command | Status | Failure reason. No prose.
+Output: markdown table — Command | Executed As | Status | Output snippet. No prose.
