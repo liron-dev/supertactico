@@ -1,14 +1,9 @@
-# Consider Using Mandatory Gates Before Anything
+# Gates — Run Agents Before Acting
 
-**Before any planning to create code with state/dependency/cascade logic:**
-Yes → Agent(subagent_type:"logic-cartographer", model:"sonnet") → YAML output first
+**logic-cartographer** → Before doing code with state/dependencies/rules/cascade/logic. Agent(model:"sonnet"). Skip: trivial edits, config, pure UI.
+**devils-advocate** → Before big changes, architectural decisions, implementing a plan. Agent(model:"haiku"). Skip: small fixes, deps, formatting.
+**env-detective** → Before install/build/deploy commands. Agent(model:"haiku"). Pass exact commands to dry-run.
 
-**Before doing install/build/deploy commands in session:**
-Yes → Agent(subagent_type:"env-detective", model:"haiku") → deep dry-run validation
+# File Creation
 
-**Before big changes, architectural decisions or major code creation:**
-Yes → Agent(subagent_type:"devils-advocate", model:"haiku") → process critical notes
-
-# For Any File Or Folder Creation
-
-For 2+ files/dirs: `Skill("batch-fs")` is mandatory. Individual Write/Edit/bash creation prohibited.
+For 2+ files/dirs: `Skill("batch-fs")` with no args — write content only in the heredoc.
